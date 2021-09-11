@@ -5,6 +5,9 @@ const mongoose = require("mongoose");
 
 app.use(formidable());
 
+const itemsRoute = require("./routes/item");
+app.use(itemsRoute);
+
 mongoose.connect(process.env.MONGODB_URI, {
   useUnifiedTopology: true,
   useNewUrlParser: false,
