@@ -46,6 +46,7 @@ const Item = mongoose.model("Item", {
   status: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Status",
+    default: null,
   },
 });
 
