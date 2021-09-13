@@ -32,7 +32,7 @@ const Item = mongoose.model("Item", {
   animeDetails: {
     season: {
       type: Number,
-      default: 1,
+      default: null,
     },
     episode: {
       type: Number,
@@ -44,9 +44,16 @@ const Item = mongoose.model("Item", {
     default: "",
   },
   status: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Status",
-    default: null,
+    manga: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Status",
+      default: null,
+    },
+    anime: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Status",
+      default: null,
+    },
   },
 });
 
