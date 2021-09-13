@@ -1,6 +1,7 @@
 const router = require("express").Router();
 
 const Item = require("../models/Item");
+const Status = require("../models/Status");
 
 router.post("/item/add", async (req, res) => {
   try {
@@ -36,6 +37,16 @@ router.post("/item/add", async (req, res) => {
 
       return res.status(200).json({ message: "success", newItem });
     }
+  } catch (error) {
+    return res.status(400).json({ error });
+  }
+});
+
+router.get("/items", async (req, res) => {
+  try {
+    const items = await Item.find().populate("status");
+
+    return res.status(200).json(items);
   } catch (error) {
     return res.status(400).json({ error });
   }
