@@ -15,7 +15,8 @@ router.post("/item/add", async (req, res) => {
       season = 1,
       episode = 1,
       description = "",
-      status = null,
+      mangaStatus = null,
+      animeStatus = null,
     } = req.fields;
 
     const checkIfItemExists = await Item.findOne({ name });
@@ -30,7 +31,10 @@ router.post("/item/add", async (req, res) => {
         mangaDetails: { chapter, sprintToChapter, lastChapter },
         animeDetails: { season, episode },
         description,
-        status,
+        status: {
+          manga: mangaStatus,
+          anime: animeStatus,
+        },
       });
 
       await newItem.save();
@@ -44,7 +48,9 @@ router.post("/item/add", async (req, res) => {
 
 router.get("/items", async (req, res) => {
   try {
-    const items = await Item.find().populate("status");
+    const items = await Item.find()
+      .populate("status.manga status.anime")
+      .sort({ name: "asc" });
 
     return res.status(200).json(items);
   } catch (error) {
