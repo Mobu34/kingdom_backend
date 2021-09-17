@@ -1,14 +1,16 @@
 const app = require("express")();
 const formidable = require("express-formidable");
 require("dotenv").config();
+const cors = require("cors");
 const mongoose = require("mongoose");
 
+app.use(cors());
 app.use(formidable());
 
 const itemsRoute = require("./routes/item");
 app.use(itemsRoute);
 
-mongoose.connect(process.env.MONGODB_URI, {
+mongoose.connect(process.env.MONGODB_URI_LOCAL, {
   useUnifiedTopology: true,
   useNewUrlParser: false,
 });
